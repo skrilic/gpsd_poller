@@ -14,7 +14,11 @@ REDIS_PORT = gps_config.getint("redis", "port")
 r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT)
 
 
-def get_mng(rget):
+def bin_decoder(rget):
+    '''
+    :param rget: Redis returns values in binary format
+    :return: Decoded binary value as string if exists
+    '''
     return rget.decode() if rget else '--.--'
 
 
@@ -23,13 +27,13 @@ def console_screen():
 
     print('Press Ctrl+C to Quit')
     print('========================================')
-    print('GPS status  :', get_mng(r.get('gps:message')))
+    print('GPS status  :', bin_decoder(r.get('gps:message')))
     print('----------------------------------------')
-    print('latitude    :', get_mng(r.get('gps:latitude')))
-    print('longitude   :', get_mng(r.get('gps:longitude')))
-    print('time utc    :', get_mng(r.get('gps:utc')))
-    print('altitude (m):', get_mng(r.get('gps:altitude')))
-    print('speed (m/s) :', get_mng(r.get('gps:speed')))
+    print('latitude    :', bin_decoder(r.get('gps:latitude')))
+    print('longitude   :', bin_decoder(r.get('gps:longitude')))
+    print('time utc    :', bin_decoder(r.get('gps:utc')))
+    print('altitude (m):', bin_decoder(r.get('gps:altitude')))
+    print('speed (m/s) :', bin_decoder(r.get('gps:speed')))
 
 
 if __name__ == "__main__":
