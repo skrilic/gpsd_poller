@@ -1,6 +1,6 @@
 # Description
 
-## GPS Poller with Redis backend
+## Simple GPS Poller with Redis backend
 
 * `gpsd_poller.py`
 
