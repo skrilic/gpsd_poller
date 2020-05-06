@@ -1,8 +1,9 @@
 import threading
-from gps import *
+import gps
 import redis
 import configparser
 import os
+import time
 
 
 WORKING_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -38,7 +39,7 @@ class GpsPoller(threading.Thread):
     def __init__(self):
         threading.Thread.__init__(self)
         global gpsd
-        gpsd = gps(mode=WATCH_ENABLE)
+        gpsd = gps.gps(mode=WATCH_ENABLE)
         self.current_value = None
         self.running = True
 
